@@ -1,0 +1,66 @@
+<h2>Cars</h2>
+
+<% @cars.each do |car| %>
+  <p>
+  Id: <%= car.id %>
+  <br/>
+  Name: <%= car.name %>
+
+  </p>
+<% end %>
+
+<div style="border: 2px solid red">
+  <h4>Does Not Work</h4>
+  <%= form_for @car do |f| %>
+    f.select(:name, car_names, {:include_blank => 'Choose a car', disabled: 1})
+    <br>
+    <%= f.select(:name, car_names, {:include_blank => 'Choose a car', disabled: 1}) %>
+    <br><br>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<br><br>
+
+<div style="border: 2px solid red">
+  <h4>Does Not Work</h4>
+  <%= form_for @car do |f| %>
+    f.select(:name, car_names, {:include_blank => 'Choose a car', disabled: 'Choose a car'})
+    <br>
+    <%= f.select(:name, car_names, {:include_blank => 'Choose a car', disabled: 'Choose a car'}) %>
+    <br><br>
+    <%= f.submit %>
+  <% end %>
+</div>
+<br><br>
+
+<div style="border: 2px solid red">
+  <h4>Does Not Work</h4>
+  <%= form_for @car do |f| %>
+    f.select(:name, car_names, {:prompt => 'Choose a car', required: true})
+    <br>
+    <%= f.select(:name, car_names, {:prompt => 'Choose a car', required: true}) %>
+    <br><br>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<br><br>
+
+<div style="border: 2px solid green">
+  <h4>Works!</h4>
+  <p> Use a helper or other means to create car_names_with_blank.
+    <br/>
+    def car_names_with_blank<br/>
+    &nbsp;&nbsp;def car_names.map{|c| [c, c]}.prepend(['Choose a car', nil])<br/>
+    end
+  </p>
+
+  <%= form_for @car do |f| %>
+    f.select(:name, car_names_with_blank, {disabled: '', selected: ''})
+    <br>
+    <%= f.select(:name, car_names_with_blank, {disabled: '', selected: ''}) %>
+    <br><br>
+    <%= f.submit %>
+  <% end %>
+</div>
